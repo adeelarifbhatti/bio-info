@@ -15,19 +15,22 @@ def readSNPfile(vcfFile):
 	for elem in snplist:
 		l = elem.split('\t')
 		#              POS 
-		snpdict[tuple((l[1]))] = elem
+		snpdict[tuple((l[0],l[1]))] = elem
 
 	return snpdict
 
 def getSNPs(varientRange, sbjctlist):
 	sbjctdict = readSNPfile(sbjctlist)
-	ctrldict = readFile(varientRange)
+	rangeFile = readFile(varientRange)
 
 
 	# This returns dict keys that are in sbjctdict but not in ctrldict
-	print(ctrldict)
+	print(rangeFile)
 	#print(sbjctdict)
-	snps = set(sbjctdict).difference(set(ctrldict))
+	print(type(sbjctdict))
+	print(type(rangeFile))
+	#print(sbjctdict)
+	snps = set(sbjctdict).difference(set(rangeFile))
 	return [sbjctdict[snp] for snp in snps]
 
 def readFile(fname):
@@ -35,7 +38,8 @@ def readFile(fname):
 		value2=numpy.loadtxt(fname, delimiter="\t",usecols=[2])
 		i=0
 		#while i < len(value1):
-		return numpy.arange(value1[i],value2[i])
+		return dict(enumerate(numpy.arange(value1[i],value2[i]).flatten(), 1))
+		
 		#	i+=1			
 if __name__ == '__main__':
 	fname = sys.argv[1]
