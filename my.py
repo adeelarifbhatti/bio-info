@@ -15,9 +15,13 @@ def readSNPfile(vcfFile):
 	for elem in snplist:
 		l = elem.split('\t')
 		#              POS 
-		snpdict[tuple((l[0],l[1]))] = elem
-
+		#snpdict[tuple((l[1]))] = elem
+		snpdict[l[1]] = elem
+	print(snpdict.keys())
+	print(type(snpdict.keys()))
 	return snpdict
+
+
 
 def getSNPs(varientRange, sbjctlist):
 	sbjctdict = readSNPfile(sbjctlist)
@@ -25,7 +29,7 @@ def getSNPs(varientRange, sbjctlist):
 
 
 	# This returns dict keys that are in sbjctdict but not in ctrldict
-	print(rangeFile)
+	#print(rangeFile)
 	#print(sbjctdict)
 	print(type(sbjctdict))
 	print(type(rangeFile))
@@ -34,11 +38,28 @@ def getSNPs(varientRange, sbjctlist):
 	return [sbjctdict[snp] for snp in snps]
 
 def readFile(fname):
-		value1=numpy.loadtxt(fname, delimiter="\t",usecols=[1])
-		value2=numpy.loadtxt(fname, delimiter="\t",usecols=[2])
+		#value1=numpy.loadtxt(fname, delimiter="\t",usecols=[0])	
+		value2=numpy.loadtxt(fname, delimiter="\t",usecols=[1])
+		value3=numpy.loadtxt(fname, delimiter="\t",usecols=[2])
 		i=0
 		#while i < len(value1):
-		return dict(enumerate(numpy.arange(value1[i],value2[i]).flatten(), 1))
+		#a=(dict(enumerate(numpy.arange(value2[i],value3[i]).flatten())))
+		#return dict(enumerate(numpy.arange(value1[i],value2[i]).flatten()))
+		rangelist = numpy.arange(value2[i],value3[i]).tolist()
+		#a=dict(enumerate(rangelist).flatten())
+		a=str(rangelist)
+		print(type(a))
+		print(rangelist)
+		print(type(rangelist))
+		rangedict = {}
+		'''
+		for elem in rangelist:
+			l = elem
+			#              POS 
+			rangedict[tuple((l[0]))] = elem
+		'''
+		print(rangedict)
+		return rangelist
 		
 		#	i+=1			
 if __name__ == '__main__':
