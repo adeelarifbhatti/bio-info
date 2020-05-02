@@ -3,41 +3,32 @@
 from __future__ import with_statement, print_function
 import sys
 import numpy as numpy
+def readSNPfile(vcfFile):
+	snplist = []
+	with open(vcfFile, 'r') as f:
+		for line in f:
+			if line.startswith('#'):
+				continue
+			snplist.append(line)
+		
+	snpdict = {}
+	for elem in snplist:
+		l = elem.split('\t')
+		#              POS 
+		snpdict[tuple((l[1]))] = elem
 
-
-
+	print(snpdict)
 def readFile(fname):
-
-	#snplist = []
-	#with open(fname, 'r') as f:
-	#	for line in f:
-	#		if line.startswith('#'):
-	#			continue
-	#		snplist.append(line)
-	#	for i in snplist:
-	#		arr=numpy.array(snplist)
-		#print(snplist)
-
-		#print(arr)
-		##for i in range(len(snplist)):
-		##	x=(snplist[i])
-
 		value1=numpy.loadtxt(fname, delimiter="\t",usecols=[1])
 		value2=numpy.loadtxt(fname, delimiter="\t",usecols=[2])
-		#a=numpy.arange(data[:,0],data[:,1])
-		#print(a)
-		#array3=value1[numpy.array(0)]
-		#print(len(data))
-		#print(value1[0])
 		i=0
 		while i < len(value1):
 			print(numpy.arange(value1[i],value2[i]))
 			i+=1
 			
-
-		
-
 if __name__ == '__main__':
 	fname = sys.argv[1]
+	vcfFile = sys.argv[2]
 	readFile(fname)
+	readSNPfile(vcfFile)
 	
