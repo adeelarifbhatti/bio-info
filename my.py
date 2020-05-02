@@ -31,10 +31,14 @@ def getSNPs(varientRange, sbjctlist):
 	# This returns dict keys that are in sbjctdict but not in ctrldict
 	#print(rangeFile)
 	#print(sbjctdict)
+	dictOfWords = { i : 5 for i in rangeFile }
+	print(type(sbjctdict.keys()))
 	print(type(sbjctdict))
-	print(type(rangeFile))
+	print(type(dictOfWords.keys()))
+	print(dictOfWords.values())
 	#print(sbjctdict)
-	snps = set(sbjctdict).difference(set(rangeFile))
+	snps = set(sbjctdict.keys()).difference(set(dictOfWords.values()))
+	#snps = set(sbjctdict.keys())-(set(dictOfWords.keys()))
 	return [sbjctdict[snp] for snp in snps]
 
 def readFile(fname):
@@ -45,20 +49,14 @@ def readFile(fname):
 		#while i < len(value1):
 		#a=(dict(enumerate(numpy.arange(value2[i],value3[i]).flatten())))
 		#return dict(enumerate(numpy.arange(value1[i],value2[i]).flatten()))
-		rangelist = numpy.arange(value2[i],value3[i]).tolist()
+		rangelist = numpy.arange(value2[i],value3[i],1, dtype=int).tolist()
 		#a=dict(enumerate(rangelist).flatten())
-		a=str(rangelist)
-		print(type(a))
 		print(rangelist)
 		print(type(rangelist))
-		rangedict = {}
-		'''
-		for elem in rangelist:
-			l = elem
-			#              POS 
-			rangedict[tuple((l[0]))] = elem
-		'''
-		print(rangedict)
+		#dictOfWords = { i : 5 for i in rangelist }
+		#print(dictOfWords.keys())
+		#print(type(dictOfWords))
+
 		return rangelist
 		
 		#	i+=1			
