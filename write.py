@@ -12,7 +12,8 @@ def readFile():
   		F = open("devops.txt", "a")
 		for x in range(int(start), int(stop)):
 			F = open("devops.txt", "a")
-			F.write(chromosome+'\t'+str(x))
-			F.write('\n')
+			F.write(chromosome+'\t'+str(x)+'\t'+'\n')
+		F.close()
+			#F.write('\n')
 if __name__ == '__main__':
 	readFile()
