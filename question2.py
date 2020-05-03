@@ -36,7 +36,9 @@ def readFile(fname):
 if __name__ == '__main__':
 	fname = sys.argv[1]
 	vcffile= sys.argv[2]
-	result=numpy.intersect1d(makeVariantArray(vcffile),readFile(fname))
+	vcffile2=sys.argv[3]
+	vcffiles=numpy.append(makeVariantArray(vcffile),makeVariantArray(vcffile2))
+	result=numpy.intersect1d(vcffiles,readFile(fname))
 	with open('result.txt', 'w') as out:
 		for snp in result:
 			out.write(str(snp)+'\n')
