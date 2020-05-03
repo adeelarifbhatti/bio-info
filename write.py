@@ -10,7 +10,7 @@ def readFile():
   		stop = fields[2]
   		print(chromosome +'\t'+ start+ '\t'+ stop)
   		F = open("devops.txt", "a")
-		for x in range(int(start), int(stop)):
+		for x in range(long(start), long(stop)):
 			F = open("devops.txt", "a")
 			F.write(chromosome+'\t'+str(x)+'\t'+'\n')
 		F.close()
