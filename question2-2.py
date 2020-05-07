@@ -1,5 +1,6 @@
-#!/usr/bin/env python2
 import numpy as numpy 
+import thread
+#from thread import start_new_thread
 import sys
 def makeVariantArray(vcffile):
 	snplist = []
@@ -18,7 +19,7 @@ def makeVariantArray(vcffile):
 	varientArray = numpy.asarray(varientlist) 
 	#print(varientArray)
 	return varientArray
-def readFile(fname):
+def readFile(fname):	
 	rangelist = []
 	result2=0
 	b = []
@@ -42,11 +43,15 @@ def readFile(fname):
 		print('"""""""""""Total Number of Variants are:"""""""""""""', result2)
 		return b
 if __name__ == '__main__':
-
 	fname = sys.argv[1]
 	vcffile= sys.argv[2]
 	vcffile2=sys.argv[3]
 	vcffiles=numpy.append(makeVariantArray(vcffile),makeVariantArray(vcffile2))
-	readFile(fname)
+
+	thread.start_new_thread(readFile, (fname,))
+	#readFile(fname)
+	print('"""""""""""Total Number of Variants are:""""""""""""')
+	
+	
 
 	
