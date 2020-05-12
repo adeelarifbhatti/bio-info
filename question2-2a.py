@@ -21,8 +21,7 @@ def makeVariantArray(vcffile):
 	return varientArray
 def readFile(fname,i,j):	
 	rangelist = []
-	result2=0
-	b = []
+	result2 = 0
 	with open(fname, 'r') as f:
 		for line in f:
 			if line.startswith('#'):
@@ -41,19 +40,20 @@ def readFile(fname,i,j):
 			print('Number of Variants in Interval' ,fields[1] ,'and',fields[2],' is ', len(result))
 			result2 += len(result)
 
-		print('"""""""""""Total Number of Variants are:"""""""""""""', result2)
-		return b
+		#print('"""""""""""Total Number of Variants are:"""""""""""""', result2)
+		return result2
 if __name__ == '__main__':
 	fname = sys.argv[1]
 	vcffile= sys.argv[2]
 	vcffile2=sys.argv[3]
 	vcffiles=numpy.append(makeVariantArray(vcffile),makeVariantArray(vcffile2))
-
+	result3=readFile(fname,0,4)
 	#thread.start_new_thread(readFile, (fname,))
-	readFile(fname,1,4)
-	readFile(fname,5,8)
+	
+	result4=readFile(fname,4,8)
+	result5=result4+result3
 
-	print('"""""""""""Total Number of Variants are:""""""""""""')
+	print('"""""""""""Total Number of Variants are:""""""""""""',result5)
 	
 	
 
