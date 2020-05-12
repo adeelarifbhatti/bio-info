@@ -1,5 +1,5 @@
 import numpy as numpy 
-import thread
+import threading
 #from thread import start_new_thread
 import sys
 def makeVariantArray(vcffile):
@@ -40,20 +40,21 @@ def readFile(fname,i,j):
 			print('Number of Variants in Interval' ,fields[1] ,'and',fields[2],' is ', len(result))
 			result2 += len(result)
 
-		#print('"""""""""""Total Number of Variants are:"""""""""""""', result2)
-		return result2
+		print('"""""""""""Total Number of Variants are:"""""""""""""', result2)
+		
 if __name__ == '__main__':
 	fname = sys.argv[1]
 	vcffile= sys.argv[2]
-	vcffile2=sys.argv[3]
+	vcffile2=sys.argv[3]	
 	vcffiles=numpy.append(makeVariantArray(vcffile),makeVariantArray(vcffile2))
-	result3=readFile(fname,0,4)
-	#thread.start_new_thread(readFile, (fname,))
-	
-	result4=readFile(fname,4,8)
-	result5=result4+result3
+ 	t1 = threading.Thread(target=readFile, args=(fname,0,4))
+    	t2 = threading.Thread(target=readFile, args=(fname,4,8))
+    	t1.start()
+    	t2.start()
+    	t1.join()
+    	t2.join()
 
-	print('"""""""""""Total Number of Variants are:""""""""""""',result5)
+	#print('"""""""""""Total Number of Variants are:""""""""""""',result5)
 	
 	
 
