@@ -22,6 +22,7 @@ def makeVariantArray(vcffile):
 def readFile(fname,i,j):	
 	rangelist = []
 	result2 = 0
+	global final
 	with open(fname, 'r') as f:
 		for line in f:
 			if line.startswith('#'):
@@ -30,22 +31,21 @@ def readFile(fname,i,j):
 			rangedict = {}
 		for x in range(i,j):
 			fields = rangelist[x].split('\t')
-			print(x)
+			#print(x)
 			chromosome = fields[0]
   			start = fields[1]
   			stop = fields[2]
 			a=[numpy.arange(int(start),int(stop))]
 			##b=a
 			result=numpy.intersect1d(vcffiles,a)
-			print('Number of Variants in Interval' ,fields[1] ,'and',fields[2],' is ', len(result))
+			#print('Number of Variants in Interval' ,fields[1] ,'and',fields[2],' is ', len(result))
 			result2 += len(result)
-
-		print('"""""""""""Total Number of Variants are:"""""""""""""', result2)
-		
+		final += result2
 if __name__ == '__main__':
 	fname = sys.argv[1]
 	vcffile= sys.argv[2]
-	vcffile2=sys.argv[3]	
+	vcffile2=sys.argv[3]
+	final=0	
 	vcffiles=numpy.append(makeVariantArray(vcffile),makeVariantArray(vcffile2))
  	t1 = threading.Thread(target=readFile, args=(fname,0,4))
     	t2 = threading.Thread(target=readFile, args=(fname,4,8))
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     	t2.start()
     	t1.join()
     	t2.join()
-
+    	print('The number of varients are ',final)
 	#print('"""""""""""Total Number of Variants are:""""""""""""',result5)
 	
 	
