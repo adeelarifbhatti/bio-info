@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# For creating the lvm for scratch2
+#
+name1=`hostname|cut -f1 -d "."`
+
+name2=`date +'%d-%m-%y'`
+
+diskname="$1"
+
+pvcreate $diskname
+
+vgcreate $name1-$name2-scratch2 $diskname
+
+lvcreate -n scratch2 -l 99%FREE $name1-$name2-scratch2
+
+mkfs.ext4 -m 0 /dev/$name1-$name2-scratch2/scratch2
+
+mkdir /scratch2
+
+echo "/dev/$name1-$name2-scratch2    /scratch2    ext4    defaults    1    2" >> /etc/fstab
